@@ -2,6 +2,7 @@ package fr.rphstudio.chess.game;
 import fr.rphstudio.chess.interf.EmptyCellException;
 import fr.rphstudio.chess.interf.IChess;
 import fr.rphstudio.chess.interf.OutOfBoardException;
+import sun.util.resources.cldr.vai.CalendarData_vai_Latn_LR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.List;
 public class ChessModel implements IChess {
 
     private static IChess instance;
-    private  ChessModel(){
+    private Board superBoard;
 
+    private  ChessModel(){
+        superBoard = new Board();
     }
 
     public static IChess getInstance(){
@@ -31,11 +34,20 @@ public class ChessModel implements IChess {
 
     @Override
     public ChessType getPieceType(ChessPosition p) throws EmptyCellException, OutOfBoardException {
+        Piece pi = superBoard.getPieces(p);
+        if (pi != null){
+            return pi.getType();
+        }
         throw new EmptyCellException();
+
     }
 
     @Override
     public ChessColor getPieceColor(ChessPosition p) throws EmptyCellException, OutOfBoardException {
+        Piece po = superBoard.getPieces(p);
+        if (po != null){
+            return po.getColor();
+        }
         throw new EmptyCellException();
     }
 
