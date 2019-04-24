@@ -13,6 +13,7 @@ public class ChessModel implements IChess {
     private static IChess instance;
     private Board superBoard;
 
+
     private  ChessModel(){
         superBoard = new Board();
     }
@@ -53,7 +54,19 @@ public class ChessModel implements IChess {
 
     @Override
     public int getNbRemainingPieces(ChessColor color) {
-        return 0;
+        int count = 0;
+        for (int y=0; y< IChess.BOARD_HEIGHT;y++ ){
+            for (int x=0; x< IChess.BOARD_WIDTH; x++){
+                Piece piece = superBoard.getPieces(new ChessPosition(x, y));
+                if ( piece != null ){
+                    if (piece.getColor() == color){
+                        count ++;
+                    }
+
+                }
+            }
+        }
+        return count;
     }
 
     @Override
