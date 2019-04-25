@@ -43,7 +43,7 @@ public class Board {
     }
 
     public Piece getPieces(IChess.ChessPosition position){
-        if ((position.x > IChess.BOARD_WIDTH) || (position.y > IChess.BOARD_HEIGHT) || (position.x < 0) || (position.y < 0)){
+        if ((position.x >= IChess.BOARD_WIDTH) || (position.y >= IChess.BOARD_HEIGHT) || (position.x < 0) || (position.y < 0)){
             return null;
         }
         return table [position.x][position.y];

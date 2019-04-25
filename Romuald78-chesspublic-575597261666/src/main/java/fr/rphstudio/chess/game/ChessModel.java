@@ -4,6 +4,7 @@ import fr.rphstudio.chess.interf.IChess;
 import fr.rphstudio.chess.interf.OutOfBoardException;
 import sun.util.resources.cldr.vai.CalendarData_vai_Latn_LR;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ChessModel implements IChess {
 
 
     private  ChessModel(){
-        superBoard = new Board();
+       reinit();
     }
 
     public static IChess getInstance(){
@@ -30,7 +31,7 @@ public class ChessModel implements IChess {
 
     @Override
     public void reinit() {
-
+        superBoard = new Board();
     }
 
     @Override
