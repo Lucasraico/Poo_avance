@@ -1,6 +1,45 @@
 package fr.rphstudio.chess.game;
 
-import fr.rphstudio.chess.interf.IMove;
 
-public class Knight{
+import fr.rphstudio.chess.interf.IChess;
+import fr.rphstudio.chess.interf.IMove;
+import fr.rphstudio.chess.interf.IChess.ChessPosition;
+
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Knight implements IMove {
+
+    public List<ChessPosition> getPossibleMoves(ChessPosition position, Board board) {
+
+        ArrayList<ChessPosition> listPosition = new ArrayList<ChessPosition>();
+
+        int[][] move = {{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
+
+        for (int i = 0; i < move.length; i++) {
+
+            ChessPosition position2 = new ChessPosition(position.x + move[i][0], position.y + move[i][1]);
+
+            if (position2.isValid()) {
+
+                Piece piece2 = board.getPieces(position2);
+
+
+                if (piece2 != null) {
+
+                    if (piece2.getColor() == board.getPieces(position).getColor() ) {
+                        continue;
+                    }
+                }
+
+                listPosition.add(new ChessPosition(position.x + move[i][0], position.y + move[i][1]));
+            }
+        }
+
+        return listPosition;
+    }
+
 }
