@@ -9,10 +9,36 @@ import java.util.List;
 
 public class Rook implements IMove{
 
-    public List<IChess.ChessPosition> getPossibleMoves(IChess.ChessPosition pos, Board board){
-        List<IChess.ChessPosition> li = new ArrayList<>();
-        li.add(new IChess.ChessPosition(7, 7));
+    public List<IChess.ChessPosition> getPossibleMoves(IChess.ChessPosition position, Board board) {
 
-        return li;
-}
+        ArrayList<IChess.ChessPosition> listPosition = new ArrayList<IChess.ChessPosition>();
+
+        int[][] move = {{-1, 0}, {-3, 0}, {-4, 0}, {-5, 0}, {-6, 0}, {-7, 0},
+                {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0},
+                {0, -1}, {0, -2}, {0, -3}, {0,-4}, {0,-5}, {0,-6}, {0,-7},
+                {0, 1}, {0, 2}, {0, 3}, {0,4}, {0,5}, {0,6}, {0,7}
+        };
+
+        for (int i = 0; i < move.length; i++) {
+
+            IChess.ChessPosition position2 = new IChess.ChessPosition(position.x + move[i][0], position.y + move[i][1]);
+
+            if (position2.isValid()) {
+
+                Piece piece2 = board.getPieces(position2);
+
+
+                if (piece2 != null) {
+
+                    if (piece2.getColor() == board.getPieces(position).getColor() ) {
+                        continue;
+                    }
+                }
+
+                listPosition.add(new IChess.ChessPosition(position.x + move[i][0], position.y + move[i][1]));
+            }
+        }
+
+        return listPosition;
     }
+}
