@@ -25,12 +25,12 @@ public class Rook implements IMove{
 
             if (position2.isValid()) {
 
-                Piece piece2 = board.getPieces(position2);
+                Piece piece2 = board.getPieces(position2.x , position2.y);
 
 
                 if (piece2 != null) {
 
-                    if (piece2.getColor() == board.getPieces(position).getColor() ) {
+                    if (piece2.getColor() == board.getPieces(position.x, position.y).getColor() ) {
                         continue;
                     }
                 }
