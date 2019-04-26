@@ -36,7 +36,8 @@ public class ChessModel implements IChess {
 
     @Override
     public ChessType getPieceType(ChessPosition p) throws EmptyCellException, OutOfBoardException {
-        Piece pi = superBoard.getPieces(p);
+        Piece pi = superBoard.getPieces(p.x,p.y);
+
         if (pi != null){
             return pi.getType();
         }
@@ -46,7 +47,8 @@ public class ChessModel implements IChess {
 
     @Override
     public ChessColor getPieceColor(ChessPosition p) throws EmptyCellException, OutOfBoardException {
-        Piece po = superBoard.getPieces(p);
+        Piece po = superBoard.getPieces(p.x,p.y);
+
         if (po != null){
             return po.getColor();
         }
@@ -58,7 +60,7 @@ public class ChessModel implements IChess {
         int count = 0;
         for (int y=0; y< IChess.BOARD_HEIGHT;y++ ){
             for (int x=0; x< IChess.BOARD_WIDTH; x++){
-                Piece piece = superBoard.getPieces(new ChessPosition(x, y));
+                Piece piece = superBoard.getPieces(x, y);
                 if ( piece != null ){
                     if (piece.getColor() == color){
                         count ++;
@@ -73,7 +75,7 @@ public class ChessModel implements IChess {
     @Override
     public List<ChessPosition> getPieceMoves(ChessPosition p) {
 
-        Piece pi = superBoard.getPieces(p);
+        Piece pi = superBoard.getPieces(p.x,p.y);
         if (pi != null) {
             return pi.getMoves(p, superBoard);
         }
@@ -90,6 +92,38 @@ public class ChessModel implements IChess {
 
     @Override
     public ChessKingState getKingState(ChessColor color) {
+        ChessPosition kingPos = null;
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_HEIGHT; y++) {
+                ChessPosition tmpPos = new ChessPosition(x, y);
+                Piece piece = superBoard.getPieces(x,y);
+                if (piece != null) {
+                    if (piece.getType() == ChessType.TYP_KING) {
+                        if (piece.getColor() == color) {
+                            kingPos = tmpPos;
+                        }
+                    }
+                }
+            }
+        }
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_HEIGHT; y++) {
+                Piece currentPiece = superBoard.getPieces(x,y);
+                if(currentPiece != null ){
+                    if (currentPiece.getColor() != color){
+                        ChessPosition pi= new ChessPosition(x,y);
+                        List<ChessPosition> poslist= currentPiece.getMoves(pi,superBoard);
+                        for(ChessPosition p:poslist){
+                            if(p.equals(kingPos)){
+                                return ChessKingState.KING_THREATEN ;
+                            }
+                        }
+                    }
+                }
+
+            }
+          }
+
         return ChessKingState.KING_SAFE;
     }
 

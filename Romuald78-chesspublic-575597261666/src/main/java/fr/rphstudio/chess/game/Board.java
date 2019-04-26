@@ -44,11 +44,8 @@ public class Board {
         table [7][7] = new Piece(IChess.ChessColor.CLR_BLACK, IChess.ChessType.TYP_ROOK, new Rook());
     }
 
-    public Piece getPieces(IChess.ChessPosition position){
-        if ((position.x > IChess.BOARD_WIDTH) || (position.y > IChess.BOARD_HEIGHT) || (position.x < 0) || (position.y < 0)){
-            return null;
-        }
-        return table [position.x][position.y];
+    public Piece getPieces(int x, int y){
+        return table [x][y];
     }
 
     public void movePiece(IChess.ChessPosition p0, IChess.ChessPosition p1){
