@@ -11,7 +11,7 @@ public class Pawn implements IMove {
 
     public List<IChess.ChessPosition> getPossibleMoves(IChess.ChessPosition pos, Board board){
         List<IChess.ChessPosition> li = new ArrayList<>();
-
+        li.add(new IChess.ChessPosition(0, 2));
 
 
         return li;
